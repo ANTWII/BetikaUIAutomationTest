@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Betika" parallel="false">
+    <listeners>
+        <listener class-name="utilities.ExtentReportManager"/>
+        <listener class-name="utilities.RetryListener"/>
+    </listeners>
+    <test thread-count="5" name="ChromeTests">
+        <parameter name="browser" value="chrome" />
+        <classes>
+            <class name="testCases.LoginTests"/>
+        </classes>
+    </test>
+
+    <test thread-count="5" name="EdgeTests">
+        <parameter name="browser" value="edge" />
+        <classes>
+
+        </classes>
+    </test>
+
+
+</suite>
