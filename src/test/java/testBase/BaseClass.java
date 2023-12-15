@@ -2,7 +2,6 @@ package testBase;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
@@ -31,7 +30,7 @@ public class BaseClass {
     public static WebDriver driver;  // make it static so that you can use same instance in Extent report manager
 
 
-    @BeforeClass(groups = { "Master", "Sanity", "Regression" }) //Step8 groups added
+    @BeforeClass(groups = { "Master", "Sanity", "Regression" })
     @Parameters("browser")   // getting browser parameter from testng.xml
     public void setup(String br)
     {
@@ -56,25 +55,16 @@ public class BaseClass {
         }
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
+        driver.manage().deleteAllCookies();
         driver.get(rb.getString("appURL")); // get url from config.properties file
         driver.manage().window().maximize();
     }
 
-    @AfterClass(groups = { "Master", "Sanity", "Regression" }) //Step8 groups added
+    @AfterClass(groups = { "Master", "Sanity", "Regression" })
     public void teadDown() {
         driver.quit();
     }
 
-    public String randomeString() {
-        String generatedString = RandomStringUtils.randomAlphabetic(5);
-        return (generatedString);
-    }
-
-    public String randomeNumber() {
-        String generatedString2 = RandomStringUtils.randomNumeric(10);
-        return (generatedString2);
-    }
 
     public String captureScreen(String tname) throws IOException {
 

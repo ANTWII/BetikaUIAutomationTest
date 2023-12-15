@@ -16,7 +16,7 @@ public class LoginPage extends BasePage{
     WebElement txtPassword;
 
     @FindBy(xpath = "//span[contains(text(),'Enter your password')]/following::span[contains(text(),'Login')]")
-    WebElement btnLogin;
+     WebElement btnLogin;
 
 
     public void setPhoneNumber(String PhoneNumber) {

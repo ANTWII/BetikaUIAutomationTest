@@ -11,7 +11,7 @@ public class HomePage extends BasePage{
 
     // Elements
     @FindBy(xpath = "//a[contains(text(),'Login')]")
-    WebElement btnLogin;
+  public   WebElement btnLogin;
 
     @FindBy(xpath = "//a[contains(text(),'Register')]")
     WebElement btnRegister;

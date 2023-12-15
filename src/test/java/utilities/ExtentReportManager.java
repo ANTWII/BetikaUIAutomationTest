@@ -55,7 +55,12 @@ public class ExtentReportManager implements ITestListener {
         extentTest.createNode(result.getName());
         extentTest.log(Status.FAIL, "Test Failed");
         extentTest.log(Status.FAIL, result.getThrowable().getMessage());
-
+        try {
+            String imgPath = new BaseClass().captureScreen(result.getName());
+            extentTest.addScreenCaptureFromPath(imgPath);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
     public void onTestSkipped(ITestResult result) {
         extentTest=extentReports.createTest(result.getName());
