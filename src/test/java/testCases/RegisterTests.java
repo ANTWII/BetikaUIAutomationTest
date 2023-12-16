@@ -11,7 +11,7 @@ public class RegisterTests extends BaseClass {
 
     private final   Faker faker = new Faker();
 
-    //Generate valid ghana phone numbers
+    //Generate valid Kenya phone numbers
     public static String generatePhoneNumber(Faker faker) {
         // Generate a phone number where the second digit is 0, 4, 5, 6, or 7
         String firstDigit = faker.random().nextBoolean() ? "2" : "7"; // Start with 2 or 7
