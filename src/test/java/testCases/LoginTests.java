@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 
 public class LoginTests extends BaseClass {
 
-    @Test(dataProvider="LoginData",dataProviderClass= DataProviders.class)
+    @Test(dataProvider="LoginData",dataProviderClass= DataProviders.class,groups = "sanity")
     public void test_login(String phone, String password,String expected)
     {
         //Fluent wait declaration

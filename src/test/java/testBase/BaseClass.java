@@ -29,18 +29,22 @@ import java.util.ResourceBundle;
 
 public class BaseClass {
 
-    public static ResourceBundle rb;// to read config.properties
+
 
     public Logger logger;// for Logging
 
     public static WebDriver driver;  // make it static so that you can use same instance in Extent report manager
 
+    static ResourceBundle getLoginCredentials(){
 
+        ResourceBundle routes=ResourceBundle.getBundle("config");//Load testrail credentials Properties file
+        return routes;
+    }
     @BeforeClass
     @Parameters("browser")   // getting browser parameter from testng.xml
     public void setup(String br)
     {
-        rb = ResourceBundle.getBundle("config");// Load config.properties
+
 
         logger = LogManager.getLogger(this.getClass());// for Logger
 
@@ -66,9 +70,9 @@ public class BaseClass {
             driver=new FirefoxDriver(options);
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.manage().deleteAllCookies();
-        driver.get(rb.getString("appURL")); // get url from config.properties file
+        driver.get(getLoginCredentials().getString("appURL")); // get url from config.properties file
         driver.manage().window().maximize();
     }
 
@@ -93,6 +97,8 @@ public void teadDown() {
 
     }
 //global login method for  all tests
+
+
     public static   void globalLogin()
     {
         //Fluent wait declaration
@@ -108,11 +114,11 @@ public void teadDown() {
         mywait.until(ExpectedConditions.elementToBeClickable(homepage.btnLogin));
         homepage.clickLogin();
 
-
         LoginPage  loginpage=new LoginPage(driver);
 
-        loginpage.setPhoneNumber(rb.getString("phone"));//loading credentials from the property file
-        loginpage.setPassword(rb.getString("password"));
+        loginpage.setPhoneNumber(getLoginCredentials().getString("phone"));//loading credentials from the property file
+        loginpage.setPassword(getLoginCredentials().getString("password")
+        );
 
         loginpage.clickLogin();//login
     }

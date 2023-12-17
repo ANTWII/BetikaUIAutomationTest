@@ -17,7 +17,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 public class HomeTests extends BaseClass {
     HomePage homepage;
     LoginPage loginpage;
-@Test(priority=1,description = "confirm title on home page")
+@Test(priority=1,description = "confirm title on home page",groups = "regression")
     public void test_title() {
         Assert.assertTrue(driver.getTitle().contains("Betika | Best Online Sports Betting in Kenya"));
 
@@ -42,7 +42,7 @@ public class HomeTests extends BaseClass {
 
     }
 
-    @Test(priority=2,description = "confirm odd sharing on social media",dataProvider="TestData")
+    @Test(priority=2,description = "confirm odd sharing on social media",dataProvider="TestData",groups = "regression")
     public void test_OddShareOnSoccer(Map<String, String> _data) {
 
         String socailMedialURL=_data.get("SocailMedialURL");
@@ -126,7 +126,7 @@ public class HomeTests extends BaseClass {
     }
 
 
-    @Test(priority=3,description = "confirm odd sharing when Cricket is selected",dataProvider="TestData")
+    @Test(priority=3,description = "confirm odd sharing when Cricket is selected",dataProvider="TestData",groups = "regression")
     public void test_OddShareOnCricket(Map<String, String> _data) {
 
         String socailMedialURL=_data.get("SocailMedialURL");

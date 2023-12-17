@@ -29,7 +29,7 @@ public class RegisterTests extends BaseClass {
         int randomIndex = faker.random().nextInt(validSecondDigits.length);
         return String.valueOf(validSecondDigits[randomIndex]);
     }
-    @Test()
+    @Test(groups = "sanity")
     public void test_register( )
     {
         String phone=generatePhoneNumber(faker);
