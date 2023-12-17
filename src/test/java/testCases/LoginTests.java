@@ -39,7 +39,7 @@ public class LoginTests extends BaseClass {
 
 
             LoginPage loginpage=new LoginPage(driver);
-
+            loginpage.clearLogin();
             loginpage.setPhoneNumber(phone);
             loginpage.setPassword(password);
             //usage
@@ -57,7 +57,7 @@ public class LoginTests extends BaseClass {
                 homepage.clickhambager();
                 homepage.clickLogout();
                 Assert.assertTrue(true);
-                driver.navigate().refresh();
+
 
 
             }
@@ -87,7 +87,7 @@ public class LoginTests extends BaseClass {
             Assert.fail();
         }
 
-        logger.info("*** Completed Login data driven tests******");
+       logger.info("*** Completed Login data driven tests******");
 
     }
 

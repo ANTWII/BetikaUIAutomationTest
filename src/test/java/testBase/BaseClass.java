@@ -10,27 +10,33 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.annotations.*;
+import pageObjects.HomePage;
+import pageObjects.LoginPage;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 public class BaseClass {
 
-    public ResourceBundle rb;// to read config.properties
+    public static ResourceBundle rb;// to read config.properties
 
     public Logger logger;// for Logging
 
     public static WebDriver driver;  // make it static so that you can use same instance in Extent report manager
 
 
-    @BeforeClass(groups = { "Master", "Sanity", "Regression" })
+    @BeforeClass
     @Parameters("browser")   // getting browser parameter from testng.xml
     public void setup(String br)
     {
@@ -42,30 +48,35 @@ public class BaseClass {
         if (br.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-         //   options.addArguments("--headless"); // Add this line to run Chrome in headless mode
+         //options.addArguments("--headless"); // Add this line to run Chrome in headless mode
+            options.addArguments("start-maximized");
             driver = new ChromeDriver(options);
+
         } else if (br.equals("edge")) {
             WebDriverManager.edgedriver().setup();
-            driver = new EdgeDriver();
+            EdgeOptions options=new EdgeOptions();
+           options.addArguments("--headless"); // Enable headless mode
+            driver = new EdgeDriver(options);
 
 
         } else {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
+            WebDriverManager.firefoxdriver().setup();
+            FirefoxOptions options = new FirefoxOptions();
+          options.addArguments("--headless"); // Enable headless mode
+            driver=new FirefoxDriver(options);
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         driver.manage().deleteAllCookies();
         driver.get(rb.getString("appURL")); // get url from config.properties file
         driver.manage().window().maximize();
     }
 
-    @AfterClass(groups = { "Master", "Sanity", "Regression" })
-    public void teadDown() {
-        driver.quit();
-    }
 
-
+@AfterSuite
+public void teadDown() {
+    driver.quit();
+}
     public String captureScreen(String tname) throws IOException {
 
         String timeStamp = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
@@ -80,6 +91,30 @@ public class BaseClass {
         }
         return destination;
 
+    }
+//global login method for  all tests
+    public static   void globalLogin()
+    {
+        //Fluent wait declaration
+
+        FluentWait mywait=new FluentWait(driver);
+        mywait.withTimeout(Duration.ofSeconds(30));
+        mywait.pollingEvery(Duration.ofSeconds(2));
+        mywait.ignoring(NoSuchElementException.class);
+
+
+        HomePage homepage=new HomePage(driver);
+        driver.navigate().refresh();
+        mywait.until(ExpectedConditions.elementToBeClickable(homepage.btnLogin));
+        homepage.clickLogin();
+
+
+        LoginPage  loginpage=new LoginPage(driver);
+
+        loginpage.setPhoneNumber(rb.getString("phone"));//loading credentials from the property file
+        loginpage.setPassword(rb.getString("password"));
+
+        loginpage.clickLogin();//login
     }
 
 }

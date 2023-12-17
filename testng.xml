@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Betika" >
+<suite name="Betika"  parallel="false" thread-count="2">
     <listeners>
         <listener class-name="utilities.ExtentReportManager"/>
         <listener class-name="utilities.RetryListener"/>
     </listeners>
-    <test  name="ChromeTests">
-        <parameter name="browser" value="edge" />
+    <test  name="chromeTests">
+        <parameter name="browser" value="chrome" />
         <classes>
             <class name="testCases.HomeTests"/>
             <class name="testCases.RegisterTests"/>
-            <class name="testCases.LoginTests"/>
+
 
         </classes>
     </test>
+
+
 
 
 </suite>

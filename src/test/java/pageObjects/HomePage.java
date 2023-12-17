@@ -28,7 +28,8 @@ public class HomePage extends BasePage{
     WebElement btnSoccer;
     @FindBy(xpath = "//div[@class='sports-list']/descendant::span[contains(text(),'Boxing')]")
     WebElement btnBoxing;
-
+    @FindBy(xpath = "//div[@class='sports-list']/descendant::span[contains(text(),'Volleyball')]")
+    WebElement btnVolleyball;
     @FindBy(xpath = "//div[@class='sports-list']/descendant::span[contains(text(),'Cricket')]")
     WebElement btnCricket;
 
@@ -57,6 +58,8 @@ public class HomePage extends BasePage{
     @FindBy(xpath = "//a[contains(@title,'Whatsapp')]")
     WebElement shareWhatsapp;
 
+    @FindBy(xpath = "//button[text()=' Cancel']")
+    WebElement cancelSocialShare;
 
 
     // Action Methods
@@ -83,7 +86,9 @@ public class HomePage extends BasePage{
     public void clickCricket() {
         btnCricket.click();
     }
-
+    public void clickVolleyBall() {
+        btnVolleyball.click();
+    }
     public void clickFirstOdd() {
         btnOdd_first.click();
     }
@@ -96,7 +101,7 @@ public class HomePage extends BasePage{
     public void clickShareButton() {
         btnShare.click();
     }
-    public void ShareonFacebook() {
+    public void shareonFacebook() {
         shareFacebook.click();
     }
     public void shareonTwitter() {
@@ -104,6 +109,10 @@ public class HomePage extends BasePage{
     }
     public void shareonWhatsapp() {
         shareWhatsapp.click();
+    }
+
+    public void cancelSocialshare() {
+        cancelSocialShare.click();
     }
     public boolean isdepositExist()   // deposit button boldly displayed
     {
